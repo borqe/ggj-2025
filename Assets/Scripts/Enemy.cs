@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioSource deathAudio;
     [SerializeField] private AudioSource dingAudio;
     [SerializeField] private GameObject visual;
+    [SerializeField] private GameObject boomVisual;
     
     public static Action<Enemy> OnDeath;
 
@@ -56,11 +58,28 @@ public class Enemy : MonoBehaviour
 
     private void Kill()
     {
+        StartCoroutine(KillCoroutine());
+    }
+
+    private IEnumerator KillCoroutine()
+    {
+        isActive = false;
+        
+        deathAudio.pitch = Random.Range(0.7f, 1.3f);
         deathAudio.Play();
+        
+        dingAudio.pitch = Random.Range(0.95f, 1.05f);
         dingAudio.Play();
+        
         GetComponent<CircleCollider2D>().enabled = false;
         visual.SetActive(false);
+        boomVisual.SetActive(true);
+        rb.linearVelocity = Vector2.zero;
         
+        yield return new WaitForSeconds(1.0f);
+        
+        boomVisual.SetActive(false);
+        isActive = true;
         OnDeath?.Invoke(this);
     }
 }

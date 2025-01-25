@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
             bullet.transform.SetParent(null);
             bullet.transform.localScale = Vector3.one;
             bullet.GetComponent<Rigidbody2D>().linearVelocity = aimDirection.normalized * bulletSpeed;
+            
+            shootingAudio.pitch = Random.Range(0.8f, 1.2f);
             shootingAudio.Play();
         }
         
@@ -60,12 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection += Vector2.right;
         }
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     // TODO: teleporting atm, but will be fine
-        //     transform.Translate(moveDirection.normalized * 3.0f);
-        //     return;
-        // }
+        
         rb.linearVelocity = (moveDirection.normalized * (Time.deltaTime * moveSpeed));
     }
 }
