@@ -164,6 +164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunTransform: {fileID: 8769885037805208693}
   moveSpeed: 5
+  bulletPrefab: {fileID: 7600668455763870898, guid: cf690ee18e1b4468aa9e5a05ca4f7653, type: 3}
+  bulletSpeed: 10
+  bulletLifeTime: 5
 --- !u!1 &8922197835292976614
 GameObject:
   m_ObjectHideFlags: 0
