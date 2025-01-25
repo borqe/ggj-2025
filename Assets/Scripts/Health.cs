@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
 
         if (other.gameObject.layer == LayerMask.NameToLayer($"Health"))
         {
-            health++;
+            health = 10;
             OnHealthChanged?.Invoke(health);
         }
 
