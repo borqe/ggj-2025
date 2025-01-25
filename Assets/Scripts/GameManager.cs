@@ -102,4 +102,10 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
+
+    public void WinGame()
+    {
+        PauseGame();
+        pauseScreen.ShowGameWinMenu();
+    }
 }
