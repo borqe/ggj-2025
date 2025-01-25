@@ -56,12 +56,12 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection += Vector2.right;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // TODO: teleporting atm, but will be fine
-            transform.Translate(moveDirection.normalized * 3.0f);
-            return;
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     // TODO: teleporting atm, but will be fine
+        //     transform.Translate(moveDirection.normalized * 3.0f);
+        //     return;
+        // }
         transform.Translate(moveDirection.normalized * (Time.deltaTime * moveSpeed));
     }
 }
