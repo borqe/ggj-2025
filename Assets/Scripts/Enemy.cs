@@ -13,6 +13,13 @@ public class Enemy : MonoBehaviour
     
     public static Action<Enemy> OnDeath;
 
+    private PlayerController player;
+
+    public void Start()
+    {
+        player = FindObjectOfType<PlayerController>();
+    }
+    
     public void Activate()
     {
         isActive = true;
@@ -27,8 +34,14 @@ public class Enemy : MonoBehaviour
     {
         if (isActive == false)
             return;
-
+        
         Vector3 direction = Vector3.zero - transform.position;
+        
+        if (player != null)
+        {
+            direction = player.transform.position - transform.position;
+        }
+
         rb.linearVelocity = direction.normalized * (speed * Time.fixedDeltaTime);
     }
     
