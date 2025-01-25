@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     
     [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private PauseMenu pauseScreen;
+    [SerializeField] private GameObject inGameScreen;
     
     private bool isGamePaused = false;
 
@@ -27,7 +28,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         loadingScreen.SetActive(false);
-        pauseScreen.SetActive(false);
+        pauseScreen.gameObject.SetActive(false);
+        inGameScreen.SetActive(false);
+        
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            inGameScreen.SetActive(true);
     }
 
     private void Update()
@@ -55,7 +60,8 @@ public class GameManager : MonoBehaviour
         loadingScreen.SetActive(true);
         SceneManager.LoadScene("TestScene");
         loadingScreen.SetActive(false);
-        pauseScreen.SetActive(false);
+        pauseScreen.gameObject.SetActive(false);
+        inGameScreen.SetActive(true);
         Time.timeScale = 1;
     }
 
@@ -64,19 +70,28 @@ public class GameManager : MonoBehaviour
         loadingScreen.SetActive(true);
         SceneManager.LoadScene("Boot");
         loadingScreen.SetActive(false);
-        pauseScreen.SetActive(false);
+        pauseScreen.gameObject.SetActive(false);
+        inGameScreen.SetActive(false);
     }
 
     public void PauseGame()
     {
-        pauseScreen.SetActive(true);
+        pauseScreen.gameObject.SetActive(true);
+        pauseScreen.ShowPause();
+        
         Time.timeScale = 0;
     }
 
     public void UnpauseGame()
     {
-        pauseScreen.SetActive(false);
+        pauseScreen.gameObject.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void EndGame()
+    {
+        PauseGame();
+        pauseScreen.ShowGameOverMenu();
     }
 
     public void QuitGame()

@@ -1,13 +1,17 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public const int MAX_HEALTH = 10;
+    
     [SerializeField] private Transform gunTransform;
     [SerializeField] private Transform gunNozzle;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletSpeed = 10f;
     [SerializeField] float bulletLifeTime = 5f;
+    [SerializeField] Rigidbody2D rb;
 
     [SerializeField] private AudioSource shootingAudio;
     
@@ -62,6 +66,6 @@ public class PlayerController : MonoBehaviour
         //     transform.Translate(moveDirection.normalized * 3.0f);
         //     return;
         // }
-        transform.Translate(moveDirection.normalized * (Time.deltaTime * moveSpeed));
+        rb.linearVelocity = (moveDirection.normalized * (Time.deltaTime * moveSpeed));
     }
 }
