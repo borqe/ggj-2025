@@ -28,8 +28,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(bulletPrefab, Vector3.zero, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = aimDirection.normalized * bulletSpeed;
+            var bullet = Instantiate(bulletPrefab, gunTransform);
+            bullet.transform.localPosition = Vector3.zero;
+            bullet.transform.SetParent(null);
+            bullet.GetComponent<Rigidbody2D>().linearVelocity = aimDirection.normalized * bulletSpeed;
         }
         
         Vector2 moveDirection = Vector2.zero;
