@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioSource deathAudio;
     [SerializeField] private AudioSource dingAudio;
     [SerializeField] private GameObject visual;
+    
+    public static Action<Enemy> OnDeath;
 
     public void Activate()
     {
@@ -15,6 +19,8 @@ public class Enemy : MonoBehaviour
         visual.SetActive(true);
 
         GetComponent<CircleCollider2D>().enabled = true;
+
+        speed = Random.Range(100, 400);
     }
 
     private void FixedUpdate()
@@ -32,11 +38,18 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
             Destroy(other.gameObject);
-            
-            deathAudio.Play();
-            dingAudio.Play();
-            GetComponent<CircleCollider2D>().enabled = false;
-            visual.SetActive(false);
+
+            Kill();
         }
+    }
+
+    private void Kill()
+    {
+        deathAudio.Play();
+        dingAudio.Play();
+        GetComponent<CircleCollider2D>().enabled = false;
+        visual.SetActive(false);
+        
+        OnDeath?.Invoke(this);
     }
 }

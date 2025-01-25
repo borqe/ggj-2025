@@ -3,7 +3,7 @@ using UnityEngine;
 public class Environment : MonoBehaviour
 {
     [SerializeField] private GameObject areaPrefab;
-    [SerializeField] private float wakeupRadius = 2.0f;
+    [SerializeField] private float wakeupRadius = 15.0f;
 
     private int enemyLayer;
 
