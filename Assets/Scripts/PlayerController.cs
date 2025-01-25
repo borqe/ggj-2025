@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletSpeed = 10f;
     [SerializeField] float bulletLifeTime = 5f;
+
+    [SerializeField] private AudioSource shootingAudio;
     
 
     private bool isMoving;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
             bullet.transform.SetParent(null);
             bullet.transform.localScale = Vector3.one;
             bullet.GetComponent<Rigidbody2D>().linearVelocity = aimDirection.normalized * bulletSpeed;
+            shootingAudio.Play();
         }
         
         Vector2 moveDirection = Vector2.zero;

@@ -5,10 +5,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool isActive = false;
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private AudioSource deathAudio;
+    [SerializeField] private AudioSource dingAudio;
+    [SerializeField] private GameObject visual;
 
     public void Activate()
     {
         isActive = true;
+        visual.SetActive(true);
+
+        GetComponent<CircleCollider2D>().enabled = true;
     }
 
     private void FixedUpdate()
@@ -25,10 +31,12 @@ public class Enemy : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
-            Debug.Log("Oh no");
-            
-            Destroy(gameObject);
             Destroy(other.gameObject);
+            
+            deathAudio.Play();
+            dingAudio.Play();
+            GetComponent<CircleCollider2D>().enabled = false;
+            visual.SetActive(false);
         }
     }
 }
