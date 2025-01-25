@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform gunTransform;
+    [SerializeField] private Transform gunNozzle;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float bulletSpeed = 10f;
@@ -28,9 +29,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(bulletPrefab, gunTransform);
+            var bullet = Instantiate(bulletPrefab, gunNozzle);
             bullet.transform.localPosition = Vector3.zero;
             bullet.transform.SetParent(null);
+            bullet.transform.localScale = Vector3.one;
             bullet.GetComponent<Rigidbody2D>().linearVelocity = aimDirection.normalized * bulletSpeed;
         }
         
